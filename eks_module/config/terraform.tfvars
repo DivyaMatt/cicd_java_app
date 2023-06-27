@@ -1,12 +1,12 @@
 
 aws_eks_cluster_config = {
 
-      "demo-cluster" = {
+      "pace-services-training" = {
 
-        eks_cluster_name         = "demo-cluster1"
-        eks_subnet_ids = ["subnet-0c6265a3df91b7b61","subnet-0f9c4ff10c3526a4d","subnet-04919de8d00a175f3","subnet-080af72a4f9415d55"]
+        eks_cluster_name         = "pace-services-training"
+        eks_subnet_ids = ["subnet-08f70fba6ab245fb7","subnet-00af9a6d7423858ac","subnet-06b2c2953af2b7f22"]
         tags = {
-             "Name" =  "demo-cluster"
+             "Name" =  "pace-services-training"
          }  
       }
 }
@@ -15,13 +15,13 @@ eks_node_group_config = {
 
   "node1" = {
 
-        eks_cluster_name         = "demo-cluster"
-        node_group_name          = "mynode"
+        eks_cluster_name         = "pace-services-training"
+        node_group_name          = "ng-worker"
         nodes_iam_role           = "eks-node-group-general1"
-        node_subnet_ids          = ["subnet-0c6265a3df91b7b61","subnet-0f9c4ff10c3526a4d","subnet-04919de8d00a175f3","subnet-080af72a4f9415d55"]
+        node_subnet_ids          = ["subnet-08f70fba6ab245fb7","subnet-00af9a6d7423858ac","subnet-06b2c2953af2b7f22"]
 
-        tags = {
-             "Name" =  "node1"
-         } 
+        # tags = {
+        #      "Name" =  "node1"
+        #  } 
   }
 }
