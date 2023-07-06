@@ -32,16 +32,16 @@ pipeline{
             }
         }
 
-        // stage('Unit Test maven'){
-        // when { expression {  params.action == 'create' } }
+        stage('Unit Test maven'){
+        when { expression {  params.action == 'create' } }
 
-        //     steps{
-        //        script{
+            steps{
+               script{
                    
-        //            mvnTest()
-        //        }
-        //     }
-        // }
+                   mvnTest()
+               }
+            }
+        }
         //  stage('Integration Test maven'){
         //  when { expression {  params.action == 'create' } }
         //     steps{
@@ -132,43 +132,43 @@ pipeline{
         //         }
         //     }
         // }
-        stage('Connect to EKS '){
-        when { expression {  params.action == 'create' } }
-        steps{
+        // stage('Connect to EKS '){
+        // when { expression {  params.action == 'create' } }
+        // steps{
 
-            script{
+        //     script{
 
-                sh """
-                aws configure set aws_access_key_id "$ACCESS_KEY"
-                aws configure set aws_secret_access_key "$SECRET_KEY"
-                aws configure set region "${params.Region}"
-                aws eks --region ${params.Region} update-kubeconfig --name ${params.cluster}
-                """
-            }
-        }
-        } 
-        stage('Deployment on EKS Cluster'){
-            when { expression {  params.action == 'create' } }
-            steps{
-                script{
+        //         sh """
+        //         aws configure set aws_access_key_id "$ACCESS_KEY"
+        //         aws configure set aws_secret_access_key "$SECRET_KEY"
+        //         aws configure set region "${params.Region}"
+        //         aws eks --region ${params.Region} update-kubeconfig --name ${params.cluster}
+        //         """
+        //     }
+        // }
+        // } 
+        // stage('Deployment on EKS Cluster'){
+        //     when { expression {  params.action == 'create' } }
+        //     steps{
+        //         script{
                   
-                  def apply = false
+        //           def apply = false
 
-                  try{
-                    input message: 'please confirm to deploy on eks', ok: 'Ready to apply the config ?'
-                    apply = true
-                  }catch(err){
-                    apply= false
-                    currentBuild.result  = 'UNSTABLE'
-                  }
-                  if(apply){
+        //           try{
+        //             input message: 'please confirm to deploy on eks', ok: 'Ready to apply the config ?'
+        //             apply = true
+        //           }catch(err){
+        //             apply= false
+        //             currentBuild.result  = 'UNSTABLE'
+        //           }
+        //           if(apply){
 
-                    sh """
-                      kubectl apply -f .
-                    """
-                  }
-                }
-            }
-        }      
+        //             sh """
+        //               kubectl apply -f .
+        //             """
+        //           }
+        //         }
+        //     }
+        // }      
      }
 }
